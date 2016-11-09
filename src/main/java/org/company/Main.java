@@ -1,29 +1,36 @@
 package org.company;
 
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.eclipse.jetty.server.Server;
+
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
-import java .util.ArrayList;
+
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
+
+
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) throws Exception {
         DataBase db = new DataBase();
-        Product product = new Product("Колобок", "Народная сказка");
-        Product product1 = new Product("Метель", "Александр Пушкин");
-        Product product2 =  new Product("Три мушкетера", "Александр Дюма");
+        Product product = db.getProduct(3);
+        String data = product.toString();
+        List<Product> list = new ArrayList<Product>();
+        list = db.getAllProducts();
 
-//        List<Product> products = new ArrayList<Product>();
-//        products = db.getAllProducts();
-//
-//        db.insertProduct(product1);
-//        db.deleteProduct(6);
-//        db.getProduct(3);
-//        db.updateProduct(10, product);
 
+        Servlet servlet = new Servlet(list);
+        Server server = new Server(8080);
+        ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+
+        handler.addServlet(new ServletHolder(servlet), "/base");
+        server.setHandler(handler);
+        server.start();
+        server.join();
 
         db.getConnection().close();
     }

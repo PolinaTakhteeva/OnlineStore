@@ -46,4 +46,8 @@ public class Product {
                 ", author='" + author + '\'' +
                 '}';
     }
+
+//    Product product = new Product("Колобок", "Народная сказка");
+//    Product product1 = new Product("Метель", "Александр Пушкин");
+//    Product product2 =  new Product("Три мушкетера", "Александр Дюма");
 }
