@@ -1,17 +1,21 @@
-package org.company;
+package com.company;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "products", schema = "public")
 public class Product {
     private int id;
     private String name;
     private String author;
 
-    Product(){
+    public Product(){
         id = 0;
         name = "";
         author = "";
     }
 
-    Product(String name, String author){
+    public Product(String name, String author){
         this.id = 0;                   //"id = 0" is mean, that product hasn't been added to the database
         this.name = name;
         this.author = author;

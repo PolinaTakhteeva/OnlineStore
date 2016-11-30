@@ -1,19 +1,23 @@
-package org.company;
+package com.company.dao.impl;
+
+import com.company.Product;
+import com.company.dao.DataBase;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataBase {
+public class DataBaseJDBCImpl implements DataBase {
     private Connection connection = null;
     private final String url = "jdbc:postgresql://127.0.0.1:5432/OnlineStore";
     private final String username = "postgres";
     private final String password = "root";
+    private final String driver = "org.postgresql.Driver";
 
-    public DataBase(){
+    public DataBaseJDBCImpl(){
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName(driver);
             connection = DriverManager.getConnection( url, username, password);
             if (!connection.isClosed()) {
                 System.out.println("Opened database successfully");
@@ -27,9 +31,8 @@ public class DataBase {
         return  connection;
     }
 
-
     public Product getProduct(int productId){
-        String query = "SELECT \"Products\".* FROM public.\"Products\" WHERE \"Products\".id = ?";
+        String query = "SELECT products.* FROM public.products WHERE products.id = ?";
         Product product = new Product();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -51,7 +54,7 @@ public class DataBase {
 
 
     public List<Product> getAllProducts() {
-        String query = "SELECT \"Products\".* FROM public.\"Products\";";
+        String query = "SELECT products.* FROM public.products;";
         List<Product> list = new ArrayList<Product>();
 
         try {
@@ -75,7 +78,7 @@ public class DataBase {
 
     public void insertProduct(Product product){
         PreparedStatement preparedStatment = null;
-        String insert = "INSERT INTO public.\"Products\"(name, author)" +
+        String insert = "INSERT INTO public.products(name, author)" +
                 "VALUES (?, ?);";
         try {
             preparedStatment = connection.prepareStatement(insert);
@@ -89,11 +92,12 @@ public class DataBase {
         }
     }
 
-    public void deleteProduct(int productId)throws IOException {
-        String delete = "DELETE FROM public.\"Products\" WHERE \"Products\".id = ?;";
+    public void deleteProduct(Product product)throws IOException {
+        String delete = "DELETE FROM public.products WHERE products.name = ? AND products.author = ?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(delete);
-            preparedStatement.setInt(1, productId);
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setString(2, product.getAuthor());
             preparedStatement.execute();
             preparedStatement.close();
         }catch (SQLException e){
@@ -103,7 +107,7 @@ public class DataBase {
 
     public void updateProduct(int productId, Product product){
         try{
-            String update = "UPDATE public.\"Products\" SET name = ?, author = ? WHERE \"Products\".id =  ?";
+            String update = "UPDATE public.products SET name = ?, author = ? WHERE products.id =  ?";
             PreparedStatement preparedStatement = connection.prepareStatement(update);
             preparedStatement.setString(1, product.getName());
             preparedStatement.setString(2, product.getAuthor());
@@ -114,6 +118,5 @@ public class DataBase {
             e.printStackTrace();
         }
     }
-
-    }
+}
 
