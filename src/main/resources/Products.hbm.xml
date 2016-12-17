@@ -3,9 +3,9 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.company.Product" table="Products">
+    <class name="com.company.model.Product" table="Products">
         <id name="id" type="int">
-            <column name="id" />
+            <column name="productid" />
             <generator class="identity" />
         </id>
         <property name="name" type="string">
@@ -13,6 +13,12 @@
         </property>
         <property name="author" type="string">
             <column name="author" length="100" />
+        </property>
+        <property name="supplierId" type="int">
+            <column name="supplierid"/>
+        </property>
+        <property name="price" type="double">
+            <column name="price"/>
         </property>
     </class>
 </hibernate-mapping>

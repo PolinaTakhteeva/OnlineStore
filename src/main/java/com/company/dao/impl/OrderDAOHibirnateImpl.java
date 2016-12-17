@@ -1,49 +1,42 @@
 package com.company.dao.impl;
 
-import com.company.Product;
-import com.company.dao.DataBase;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hibernate.*;
+import com.company.dao.OrderDAO;
+import com.company.model.Order;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.io.IOException;
+import java.util.List;
 
-public class DataBaseHibernateImpl implements DataBase {
+public class OrderDAOHibirnateImpl implements OrderDAO {
 
     private static SessionFactory factory;
 
-    public DataBaseHibernateImpl(){
+    public OrderDAOHibirnateImpl(){
         try{
             factory = new Configuration()
                     .configure("hibernate.cfg.xml")
-                    .addResource("Products.hbm.xml")
                     .buildSessionFactory();
             System.out.println("Opened database successfully");
         }
         catch (Throwable ex) {
-        System.err.println("Failed to create sessionFactory object." + ex);
+            System.err.println("Failed to create sessionFactory object." + ex);
             ex.printStackTrace();
-        throw new ExceptionInInitializerError(ex);
+            throw new ExceptionInInitializerError(ex);
+        }
     }
-    }
-
 
     @Override
-    public Product getProduct(int productId) {
+    public List<Order> getAllOrders() {
         Session session = factory.openSession();
         Transaction tx = null;
-        Product product = null;
+        List<Order> orders = null;
         try{
             tx = session.beginTransaction();
-//            Query query = session.createQuery("from public.products where id = :paramId");
-//            query.setParameter("paramId", productId);
-//            List list = query.list();
-//            for (Object p : list){
-//                System.out.println(p);
-//            }
+            orders = session.createCriteria(Order.class).list();
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -51,17 +44,18 @@ public class DataBaseHibernateImpl implements DataBase {
         }finally {
             session.close();
         }
-        return null;
+        return orders;
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public Order getOrder(int id){
         Session session = factory.openSession();
         Transaction tx = null;
-        List<Product> products = null;
+        Order order = null;
         try{
             tx = session.beginTransaction();
-            products = session.createCriteria(Product.class).list();
+            order = (Order) session.get(Order.class, id);
+            System.out.println(order.toString());
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -69,32 +63,16 @@ public class DataBaseHibernateImpl implements DataBase {
         }finally {
             session.close();
         }
-        return products;
+        return order;
     }
 
     @Override
-    public void insertProduct(Product product) {
+    public void addOrder(Order order) {
         Session session = factory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.save(product);
-            tx.commit();
-        }catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public void deleteProduct(Product product) throws IOException {
-        Session session = factory.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.delete(product);
+            session.save(order);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -104,13 +82,30 @@ public class DataBaseHibernateImpl implements DataBase {
         }
     }
 
+
     @Override
-    public void updateProduct(int productId, Product product) {
+    public void deleteOrder(Order order) throws IOException {
         Session session = factory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.saveOrUpdate(product);
+            session.delete(order);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void updateOrder(Order order) {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.update(order);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();

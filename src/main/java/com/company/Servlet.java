@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.model.Product;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,10 +35,22 @@ public class Servlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=utf-8");
-        String name =  req.getParameter("book");
+        String name = req.getParameter("book");
         System.out.println(name);
         PrintWriter out = resp.getWriter();
-        out.write("<h1>Hello Servlet"+ name +"</h1>");
+        out.write("<h1>Hello Servlet" + name + "</h1>");
     }
+
+    //in main() method
+//import org.eclipse.jetty.servlet.ServletContextHandler;
+//import org.eclipse.jetty.servlet.ServletHolder;
+//        Servlet servlet = new Servlet(db.getProduct(3));
+//        Server server = new Server(8080);
+//        ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+//
+//        handler.addServlet(new ServletHolder(servlet), "/base");
+//        server.setHandler(handler);
+//        server.start();
+//        server.join();
 
 }

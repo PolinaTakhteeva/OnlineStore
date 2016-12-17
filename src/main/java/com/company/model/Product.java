@@ -1,4 +1,4 @@
-package com.company;
+package com.company.model;
 
 import javax.persistence.*;
 
@@ -8,17 +8,23 @@ public class Product {
     private int id;
     private String name;
     private String author;
+    private  int supplierId;
+    private double price;
 
     public Product(){
         id = 0;
         name = "";
         author = "";
+        supplierId = 0;
+        price = 0;
     }
 
-    public Product(String name, String author){
+    public Product(String name, String author, int supplierId, double price){
         this.id = 0;                   //"id = 0" is mean, that product hasn't been added to the database
         this.name = name;
         this.author = author;
+        this.supplierId = supplierId;
+        this.price = price;
     }
 
     public void  setId(int id){
@@ -33,6 +39,14 @@ public class Product {
         this.author = author;
     }
 
+    public void setSupplierId(int supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public  int getId() {
         return id;
     }
@@ -45,9 +59,22 @@ public class Product {
         return author;
     }
 
+    public int getSupplierId() {
+        return supplierId;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    @Override
     public String toString() {
-        return "Product{id='" + id +'\'' + ", name='" + name + '\'' +
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", author='" + author + '\'' +
+                ", supplierId=" + supplierId +
+                ", price=" + price +
                 '}';
     }
 

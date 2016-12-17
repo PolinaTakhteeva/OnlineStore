@@ -1,8 +1,8 @@
 package com.company.web.controller;
 
-import com.company.dao.impl.DataBaseHibernateImpl;
-import com.company.dao.DataBase;
-import com.company.Product;
+import com.company.dao.impl.ProductDAOHibernateImpl;
+import com.company.dao.ProductDAO;
+import com.company.model.Product;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-
 @Controller
 public class HelloController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public String printWelcome(ModelMap model) {
-        DataBase db =  new DataBaseHibernateImpl();
+        ProductDAO db =  new ProductDAOHibernateImpl();
         List<Product> list = db.getAllProducts();
         model.addAttribute("products", list);
         return "index";
@@ -32,7 +30,7 @@ public class HelloController {
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
     public String addProduct(@ModelAttribute Product product, ModelMap model){
-        DataBase db =  new DataBaseHibernateImpl();
+        ProductDAO db =  new ProductDAOHibernateImpl();
         db.insertProduct(product);
         List<Product> list = db.getAllProducts();
         model.addAttribute("products", list);

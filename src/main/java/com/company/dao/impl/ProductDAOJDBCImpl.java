@@ -1,21 +1,21 @@
 package com.company.dao.impl;
 
-import com.company.Product;
-import com.company.dao.DataBase;
+import com.company.model.Product;
+import com.company.dao.ProductDAO;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataBaseJDBCImpl implements DataBase {
+public class ProductDAOJDBCImpl implements ProductDAO {
     private Connection connection = null;
     private final String url = "jdbc:postgresql://127.0.0.1:5432/OnlineStore";
     private final String username = "postgres";
     private final String password = "root";
     private final String driver = "org.postgresql.Driver";
 
-    public DataBaseJDBCImpl(){
+    public ProductDAOJDBCImpl(){
         try {
             Class.forName(driver);
             connection = DriverManager.getConnection( url, username, password);
@@ -118,5 +118,7 @@ public class DataBaseJDBCImpl implements DataBase {
             e.printStackTrace();
         }
     }
+
+
 }
 

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.company.model.Order" table="orders">
+        <id name="orderId" type="int">
+            <column name="orderid" />
+            <generator class="identity" />
+        </id>
+        <property name="customerId" type="int">
+            <column name="customerid"/>
+        </property>
+        <property name="date" type="date">
+            <column name="date" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="15" />
+        </property>
+        <property name="payment" type="java.lang.Boolean">
+            <column name="payment" />
+        </property>
+    </class>
+</hibernate-mapping>
