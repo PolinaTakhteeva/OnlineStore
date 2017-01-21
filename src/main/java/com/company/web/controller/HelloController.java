@@ -15,17 +15,35 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HelloController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-    public String printWelcome(ModelMap model) {
+    @RequestMapping(value = "/catalog", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    public String showCatalog(ModelMap model) {
         ProductDAO db =  new ProductDAOHibernateImpl();
         List<Product> list = db.getAllProducts();
         model.addAttribute("products", list);
-        return "index";
+        return "catalog";
     }
-    @RequestMapping(value = "/addProductForm", method = RequestMethod.GET)
-    public String addProductForm(ModelMap model) {
-//        model.addAttribute("allProducts", "123");
-        return "showAddProductForm";
+
+    @RequestMapping(value = "/basket", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    public String showBasket(ModelMap model) {
+        return "basket";
+    }
+
+    @RequestMapping(value = "/cabinet", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    public String showCabinet(ModelMap model) {
+        return "cabinet";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    public String printWelcome(ModelMap model) {
+        return "welcome";
+    }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    public String printAdmin(ModelMap model) {
+        ProductDAO db =  new ProductDAOHibernateImpl();
+        List<Product> list = db.getAllProducts();
+        model.addAttribute("products", list);
+        return "admin";
     }
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
@@ -34,18 +52,16 @@ public class HelloController {
         db.insertProduct(product);
         List<Product> list = db.getAllProducts();
         model.addAttribute("products", list);
-        return "index";
+        return "showAddProductForm";
     }
 
-    @RequestMapping(value = "/hello/{name:.+}", method = RequestMethod.GET)
-    public ModelAndView hello(@PathVariable("name") String name) {
-		System.err.println("Some call me!");
+    @RequestMapping(value = "/catalog/{id:.+}", method = RequestMethod.GET)
+    public ModelAndView showProductInfo(@PathVariable("id") int id) {
+        ProductDAO db =  new ProductDAOHibernateImpl();
+        Product product = db.getProduct(id);
         ModelAndView model = new ModelAndView();
-        model.setViewName("index");
-        model.addObject("name", "awesome " + name);
-
+        model.setViewName("product");
+        model.addObject("product", product);
         return model;
-
     }
-
 }

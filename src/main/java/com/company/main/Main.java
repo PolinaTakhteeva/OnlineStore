@@ -15,11 +15,11 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-//        ProductDAO db1 = new ProductDAOHibernateImpl();
-//        List<Product> products = db1.getAllProducts();
-//        System.out.println(products.toString());
-        OrderDAOHibirnateImpl db =  new OrderDAOHibirnateImpl();
-        db.getOrder(1);
+        ProductDAO db = new ProductDAOHibernateImpl();
+//        List<Product> welcome.jsp = db1.getAllProducts();
+//        System.out.println(welcome.jsp.toString());
+
+        System.out.println(db.getProduct(3).toString());
 
     }
 }

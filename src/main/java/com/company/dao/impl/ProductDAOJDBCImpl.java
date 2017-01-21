@@ -32,7 +32,7 @@ public class ProductDAOJDBCImpl implements ProductDAO {
     }
 
     public Product getProduct(int productId){
-        String query = "SELECT products.* FROM public.products WHERE products.id = ?";
+        String query = "SELECT welcome.jsp.* FROM public.welcome.jsp WHERE welcome.jsp.id = ?";
         Product product = new Product();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -54,7 +54,7 @@ public class ProductDAOJDBCImpl implements ProductDAO {
 
 
     public List<Product> getAllProducts() {
-        String query = "SELECT products.* FROM public.products;";
+        String query = "SELECT welcome.jsp.* FROM public.welcome.jsp;";
         List<Product> list = new ArrayList<Product>();
 
         try {
@@ -78,7 +78,7 @@ public class ProductDAOJDBCImpl implements ProductDAO {
 
     public void insertProduct(Product product){
         PreparedStatement preparedStatment = null;
-        String insert = "INSERT INTO public.products(name, author)" +
+        String insert = "INSERT INTO public.welcome.jsp(name, author)" +
                 "VALUES (?, ?);";
         try {
             preparedStatment = connection.prepareStatement(insert);

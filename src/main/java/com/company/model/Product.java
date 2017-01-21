@@ -3,13 +3,15 @@ package com.company.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "products", schema = "public")
+@Table(name = "welcome.jsp", schema = "public")
 public class Product {
     private int id;
     private String name;
     private String author;
     private  int supplierId;
     private double price;
+    private String image;
+    private String description;
 
     public Product(){
         id = 0;
@@ -17,14 +19,18 @@ public class Product {
         author = "";
         supplierId = 0;
         price = 0;
+        image = "";
+        description ="";
     }
 
-    public Product(String name, String author, int supplierId, double price){
+    public Product(String name, String author, int supplierId, double price, String image, String description){
         this.id = 0;                   //"id = 0" is mean, that product hasn't been added to the database
         this.name = name;
         this.author = author;
         this.supplierId = supplierId;
         this.price = price;
+        this.image = image;
+        this.description = description;
     }
 
     public void  setId(int id){
@@ -47,6 +53,14 @@ public class Product {
         this.price = price;
     }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public  int getId() {
         return id;
     }
@@ -67,6 +81,14 @@ public class Product {
         return price;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -75,6 +97,8 @@ public class Product {
                 ", author='" + author + '\'' +
                 ", supplierId=" + supplierId +
                 ", price=" + price +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 
