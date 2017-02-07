@@ -1,6 +1,7 @@
 package com.company.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "welcome.jsp", schema = "public")
@@ -9,21 +10,23 @@ public class Product {
     private String name;
     private String author;
     private  int supplierId;
-    private double price;
+    private BigDecimal price;
     private String image;
     private String description;
+    private  int count;
 
     public Product(){
         id = 0;
         name = "";
         author = "";
         supplierId = 0;
-        price = 0;
+        price = null;
         image = "";
-        description ="";
+        description = "";
+        count = 0;
     }
 
-    public Product(String name, String author, int supplierId, double price, String image, String description){
+    public Product(String name, String author, int supplierId, BigDecimal price, String image, String description, int count){
         this.id = 0;                   //"id = 0" is mean, that product hasn't been added to the database
         this.name = name;
         this.author = author;
@@ -31,6 +34,7 @@ public class Product {
         this.price = price;
         this.image = image;
         this.description = description;
+        this.count = count;
     }
 
     public void  setId(int id){
@@ -49,7 +53,7 @@ public class Product {
         this.supplierId = supplierId;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -60,6 +64,8 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public void setCount(int count){this.count = count;}
 
     public  int getId() {
         return id;
@@ -77,7 +83,7 @@ public class Product {
         return supplierId;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -89,6 +95,7 @@ public class Product {
         return description;
     }
 
+    public int getCount() {return  count;}
     @Override
     public String toString() {
         return "Product{" +
@@ -101,6 +108,7 @@ public class Product {
                 ", description='" + description + '\'' +
                 '}';
     }
+
 
 //    Product product = new Product("Колобок", "Народная сказка");
 //    Product product1 = new Product("Метель", "Александр Пушкин");

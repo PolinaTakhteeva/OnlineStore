@@ -25,6 +25,7 @@ body {
 }
 
 .content {
+    display: flex;
     min-height: 100px;
     padding: 10px;
     color: #000000;

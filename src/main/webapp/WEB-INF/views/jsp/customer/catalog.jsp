@@ -24,7 +24,7 @@
     					<a class='nav__item nav__item_left' href="" class="current"></a>
     					<a class='nav__item' href="grid.html"></a>
     					<a class='nav__item' href="/spring3/cabinet">Личный кабинет</a>
-    					<a class='nav__item' href="/spring3/basket">Корзина</a>
+    					<a class='nav__item' href="/spring3/card">Корзина</a>
     				</nav>
 
     			</header>
@@ -55,7 +55,7 @@
     							</div>
     							<div class="product-buttons-wrap">
     								<div class="buttons">
-    									<span class="button to-cart"><span class="icon icon-cart"></span>В корзину</span>
+    									<span class="button-new">В корзину</span>
     								</div>
     							</div>
     						</div>
