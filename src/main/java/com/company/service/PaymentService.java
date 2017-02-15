@@ -1,6 +1,8 @@
 package com.company.service;
 
 import com.company.model.Order;
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.Response;
 
 public class PaymentService {
     private IntegrationPaymentService integrationPaymentService;
@@ -27,15 +29,16 @@ public class PaymentService {
         this.productService = productService;
     }
 
-    public boolean isOrderPayed(Order order){
-        return order.getStatus().equals("PAYED");
-    }
-
     public boolean payOrder(Order order){
         //integrationPaymentService
         if (integrationPaymentService != null) {
             order.setStatus("PAYED");
             return true;
         }return false;
+    }
+
+    public Response callPaymentService(Request request, Response responce){
+        //Как то присобачить IntegrationPAaymentService?
+        return responce = null;
     }
 }

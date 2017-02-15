@@ -3,8 +3,7 @@ package com.company.model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "welcome.jsp", schema = "public")
+
 public class Product {
     private int id;
     private String name;

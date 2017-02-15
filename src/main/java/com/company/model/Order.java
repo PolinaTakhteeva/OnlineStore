@@ -10,11 +10,12 @@ public class Order {
 
     private int orderId;
     private int customerId;
-    private Date date;
+//    private DateFormat date;
+    private String date;
 //    private OrderStatus status;
     private String status;
     private boolean payment;
-//    private List<OrderDetail> details;
+//    private List<OrderDetailDAO> details;
 
     public Order(){
         orderId = 0;
@@ -23,7 +24,7 @@ public class Order {
         payment = false;
     }
 
-    public Order(int orderId, int customerId, Date date, String status) {
+    public Order(int orderId, int customerId, String date, String status) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.date = date;
@@ -46,11 +47,11 @@ public class Order {
         this.customerId = customerId;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -78,11 +79,11 @@ public class Order {
         this.payment = payment;
     }
 
-//    public List<OrderDetail> getDetails() {
+//    public List<OrderDetailDAO> getDetails() {
 //        return details;
 //    }
 //
-//    public void setDetails(List<OrderDetail> details) {
+//    public void setDetails(List<OrderDetailDAO> details) {
 //        this.details = details;
 //    }
 

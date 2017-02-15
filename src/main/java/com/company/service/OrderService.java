@@ -1,11 +1,10 @@
 package com.company.service;
 
 import com.company.dao.OrderDAO;
-import com.company.dao.impl.OrderDAOHibirnateImpl;
+import com.company.dao.impl.OrderDAOHibernateImpl;
 import com.company.model.Order;
 
 import java.io.IOException;
-import java.util.Date;
 
 public class OrderService {
     private OrderDAO orderDAO;
@@ -13,18 +12,18 @@ public class OrderService {
     private PaymentService paymentService;
 
     public OrderService(){
-        orderDAO = new OrderDAOHibirnateImpl();
+        orderDAO = new OrderDAOHibernateImpl();
         changeStatusService = null;
         paymentService = null;
     }
      // getters/setters for private fields?
-    public Order createOrder(int orderId, int customerId, Date date, String status){
+    public Order createOrder(int orderId, int customerId, String date, String status){
         Order order = new Order(orderId, customerId, date, status);
         return order;
     }
 
     // Сделать несколько методов для редактирования каждого поля?
-    public Order editOrder(Order order, int orderId, int customerId, Date date, String status){
+    public Order editOrder(Order order, int orderId, int customerId, String date, String status){
         order.setOrderId(orderId);
         order.setCustomerId(customerId);
         order.setDate(date);

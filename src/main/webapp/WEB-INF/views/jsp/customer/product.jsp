@@ -58,8 +58,8 @@
                                                     <br>
                                                     <br>
 
-                                                    <spring:url value="/admin/${product.id}" var="productUrl" />
-                                                    <button class="btn btn-success" onclick="location.href='${productUrl}'">Добавить в корзину</button>
+                                                    <spring:url value="/addToCard/${product.id}" var="addToCard" />
+                                                    <button class="btn btn-success" onclick="post('${addToCard}')">Добавить в корзину</button>
                                                     <br>
                                                     <br>
                                                     <br>

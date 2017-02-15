@@ -1,7 +1,7 @@
 package com.company.dao.impl;
-
-import com.company.dao.OrderDAO;
-import com.company.model.Order;
+import com.company.dao.UserDAO;
+import com.company.model.Product;
+import com.company.model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,14 +11,15 @@ import org.hibernate.cfg.Configuration;
 import java.io.IOException;
 import java.util.List;
 
-public class OrderDAOHibirnateImpl implements OrderDAO {
+public class UserDAOHibernateImpl implements UserDAO {
 
     private static SessionFactory factory;
 
-    public OrderDAOHibirnateImpl(){
+    public UserDAOHibernateImpl(){
         try{
             factory = new Configuration()
                     .configure("hibernate.cfg.xml")
+                    .addResource("Users.hbm.xml")
                     .buildSessionFactory();
             System.out.println("Opened database successfully");
         }
@@ -30,13 +31,13 @@ public class OrderDAOHibirnateImpl implements OrderDAO {
     }
 
     @Override
-    public List<Order> getAllOrders() {
+    public User getUser(int id) {
         Session session = factory.openSession();
         Transaction tx = null;
-        List<Order> orders = null;
+        User user = null;
         try{
             tx = session.beginTransaction();
-            orders = session.createCriteria(Order.class).list();
+            user = (User) session.get(User.class, id);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -44,18 +45,17 @@ public class OrderDAOHibirnateImpl implements OrderDAO {
         }finally {
             session.close();
         }
-        return orders;
+        return user;
     }
 
     @Override
-    public Order getOrder(int id){
+    public List<User> getAllUsers() {
         Session session = factory.openSession();
         Transaction tx = null;
-        Order order = null;
+        List<User> users = null;
         try{
             tx = session.beginTransaction();
-            order = (Order) session.get(Order.class, id);
-            System.out.println(order.toString());
+            users = session.createCriteria(User.class).list();
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -63,33 +63,16 @@ public class OrderDAOHibirnateImpl implements OrderDAO {
         }finally {
             session.close();
         }
-        return order;
+        return users;
     }
 
     @Override
-    public void addOrder(Order order) {
+    public void insertUser(User user) {
         Session session = factory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.save(order);
-            tx.commit();
-        }catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
-    }
-
-
-    @Override
-    public void deleteOrder(Order order) throws IOException {
-        Session session = factory.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.delete(order);
+            session.save(user);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -100,12 +83,11 @@ public class OrderDAOHibirnateImpl implements OrderDAO {
     }
 
     @Override
-    public void updateOrder(Order order) {
-        Session session = factory.openSession();
+    public void deleteUser(User user) throws IOException {Session session = factory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.update(order);
+            session.delete(user);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -113,5 +95,23 @@ public class OrderDAOHibirnateImpl implements OrderDAO {
         }finally {
             session.close();
         }
+
+    }
+
+    @Override
+    public void updateUser(User user) {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.update(user);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+
     }
 }

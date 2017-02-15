@@ -10,17 +10,23 @@ import static org.mockito.Mockito.when;
 public class PaymentServiceTest extends TestCase {
     PaymentService paymentService;
     ProductService productService;
-    IntegrationPaymentService integrationPaymentService;
+    IntegrationPaymentService mockito;
 
     protected void setUp() throws Exception {
         paymentService = new PaymentService();
         productService = new ProductService();
-        integrationPaymentService = new IntegrationPaymentService();
+        mockito = mock(IntegrationPaymentService.class);
     }
 
     protected void tearDown() throws Exception {
         // reset state
         System.out.println("reset state");
+    }
+
+    public void testPayOrderFunction() throws Exception {
+        PaymentServiceTest paymentServiceTest = new PaymentServiceTest();
+        paymentServiceTest.setUp();
+        when(mockito.payOrder("123")).thenReturn(true);
     }
 
     public void testSomefuncitons() {
