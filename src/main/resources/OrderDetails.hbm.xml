@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
     <class name="com.company.model.OrderDetail" table="orderdetails">
-        <id name="detailid" type="int">
+        <id name="id" type="int">
             <column name="id" />
             <generator class="identity" />
         </id>

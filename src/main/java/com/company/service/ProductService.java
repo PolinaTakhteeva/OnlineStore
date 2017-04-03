@@ -3,20 +3,25 @@ package com.company.service;
 import com.company.dao.ProductDAO;
 import com.company.dao.impl.ProductDAOHibernateImpl;
 import com.company.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class ProductService {
-    private ProductDAO productDAO;
+    private final ProductDAO productDAO;
 
-    public ProductService(){
-        productDAO = new ProductDAOHibernateImpl();
+    @Autowired
+    public ProductService(final ProductDAO productDAO){
+        this.productDAO =  productDAO;
     }
 
     public List<Product> showProducts(){
         return productDAO.getAllProducts();
     }
 
-    //Стоит определиться с тем, какие есть категории
+    //Need to decide  which category
     public List<Product> showProductsByCategory(){
         return null;
     }

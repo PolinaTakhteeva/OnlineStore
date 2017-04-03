@@ -1,0 +1,57 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+
+    <context:annotation-config/>
+
+    <bean id = "factory" class = "com.company.dao.util.DAOUtils">
+        <!--<property name = "message" value = "Hello World!"/>-->
+    </bean>
+
+    <bean id = "orderDAO" class = "com.company.dao.impl.OrderDAOHibernateImpl">
+        <constructor-arg ref = "factory"/>
+    </bean>
+
+    <bean id = "orderService" class = "com.company.service.OrderService">
+        <constructor-arg ref = "orderDAO"/>
+    </bean>
+
+    <bean id = "orderDetailDAO" class = "com.company.dao.impl.OrderDetailDAOHibernateImpl">
+        <constructor-arg ref = "factory"/>
+    </bean>
+
+    <bean id = "productDAO" class = "com.company.dao.impl.ProductDAOHibernateImpl">
+        <constructor-arg ref = "factory"/>
+    </bean>
+
+    <bean id = "productService" class = "com.company.service.ProductService">
+        <constructor-arg ref = "productDAO"/>
+    </bean>
+
+    <bean id = "userDAO" class = "com.company.dao.impl.UserDAOHibernateImpl">
+        <constructor-arg ref = "factory"/>
+    </bean>
+
+</beans>
+
+
+
+
+
+
+        <!--<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">-->
+        <!--<property name="configLocation">-->
+        <!--<value>classpath:hibirnate.cfg.xml</value>-->
+        <!--</property>-->
+        <!--</bean>-->
+
+<!--<bean class = "org.springframework.orm.hibernate3.HibernateTemplate">-->
+<!--<property name="SessionFactory" ref="SessionFactory"/>-->
+<!--</bean>-->

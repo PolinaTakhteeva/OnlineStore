@@ -3,6 +3,8 @@ package com.company.service;
 import com.company.model.Order;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Response;
+import org.springframework.stereotype.Service;
+
 
 public class PaymentService {
     private IntegrationPaymentService integrationPaymentService;
@@ -10,7 +12,7 @@ public class PaymentService {
 
     public PaymentService(){
         integrationPaymentService = null;
-        productService = new ProductService();
+        productService = null;
     }
 
     public IntegrationPaymentService getIntegrationPaymentService() {

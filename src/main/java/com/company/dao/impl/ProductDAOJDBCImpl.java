@@ -2,6 +2,7 @@ package com.company.dao.impl;
 
 import com.company.model.Product;
 import com.company.dao.ProductDAO;
+import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.sql.*;

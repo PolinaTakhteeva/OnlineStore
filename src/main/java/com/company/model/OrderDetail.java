@@ -1,13 +1,20 @@
 package com.company.model;
 
 public class OrderDetail {
-    private int detailId;
+    private int id;
     private int orderId;
     private int productId;
     private int count;
 
-    public int getDetailId() {
-        return detailId;
+    public OrderDetail(){
+        id = 0;
+        orderId = 0;
+        productId = 0;
+        count = 0;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getOrderId() {
@@ -22,8 +29,8 @@ public class OrderDetail {
         return count;
     }
 
-    public void setDetailId(int detailId) {
-        this.detailId = detailId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setOrderId(int orderId) {
@@ -41,7 +48,7 @@ public class OrderDetail {
     @Override
     public String toString() {
         return "OrderDetail{" +
-                "detailId=" + detailId +
+                "id=" + id +
                 ", orderId=" + orderId +
                 ", productId=" + productId +
                 ", count=" + count +
